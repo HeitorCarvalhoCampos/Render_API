@@ -40,6 +40,14 @@ jobs:
         service-id: srv-cr2at4ij1k6c73ekt070
         # A Render API key
         api-key: rnd_UF4KiRW2lpUVaso2f1L7cg408rf
+    - name: Deploy no EC2
+      run: |
+           echo "${{secrets.KEY_EC2_E}}" >private_key && chmod 400 private_key
+           ssh -o StrictHostKeyChecking=no -i "private_key" ubuntu@ec2-54-205-204-82.compute-1.amazonaws.com "
+                     cd /home/ubuntu/SpringAWSApi &&
+                     git pull &&
+                     mvm clean package -DskipTests &&
+                     ./executar.sh "
           
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
